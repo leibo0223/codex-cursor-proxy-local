@@ -1,0 +1,22 @@
+{
+  "name": "codex-cursor-proxy-local",
+  "version": "0.2.0-local",
+  "private": true,
+  "type": "module",
+  "description": "Local Cursor-compatible proxy for ChatGPT Codex sessions.",
+  "bin": {
+    "codex-cursor-proxy": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/index.js"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.57",
+    "typescript": "^5.8.3"
+  }
+}
