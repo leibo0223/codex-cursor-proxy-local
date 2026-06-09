@@ -1,62 +1,62 @@
 # codex-cursor-proxy-local
 
-Local Node.js project for running a Cursor-compatible proxy against the ChatGPT Codex backend used by the Codex CLI.
+这是一个本地 Node.js 项目，用于运行兼容 Cursor 的代理服务，并连接 Codex CLI 使用的 ChatGPT Codex 后端。
 
-This is a maintained local version of `codex-cursor-proxy` with the fixes we tested:
+这是 `codex-cursor-proxy` 的本地维护版本，包含我们已经测试过的修复和增强：
 
-- one-command startup with `cloudflared` quick tunnel
-- persistent proxy API key
-- Cursor `input` / `messages` compatibility
-- Responses streaming to Chat Completions SSE translation
-- `custom_tool_call` support for Cursor file-edit tools such as `ApplyPatch`
-- long streaming timeout for slow reasoning pauses
-- opt-in debug logging
+- 通过 `cloudflared` quick tunnel 一键启动
+- 持久化的代理 API Key
+- 兼容 Cursor 的 `input` / `messages`
+- 将 Responses 流式输出转换为 Chat Completions SSE
+- 支持 `custom_tool_call`，可用于 Cursor 的 `ApplyPatch` 等文件编辑工具
+- 为较慢的推理停顿提供更长的流式超时时间
+- 可按需开启调试日志
 
-## Requirements
+## 环境要求
 
-- Node.js 18.17 or newer
-- `cloudflared` on `PATH`
-- Codex CLI already authenticated, with `~/.codex/auth.json` present
+- Node.js 18.17 或更高版本
+- `cloudflared` 已加入 `PATH`
+- Codex CLI 已完成认证，并且存在 `~/.codex/auth.json`
 
-On macOS, install Cloudflare Tunnel with:
+在 macOS 上，可以通过以下命令安装 Cloudflare Tunnel：
 
 ```bash
 brew install cloudflared
 ```
 
-## Install
+## 安装
 
 ```bash
 npm install
 npm run build
 ```
 
-For a local global command:
+如果需要安装为本地全局命令：
 
 ```bash
 npm link
 ```
 
-This exposes:
+安装后会暴露以下命令：
 
 ```bash
 codex-cursor-proxy
 ```
 
-## Usage
+## 使用方式
 
 ```bash
 codex-cursor-proxy
 ```
 
-The command starts the local server, starts a Cloudflare quick tunnel, and prints Cursor settings:
+该命令会启动本地服务，创建 Cloudflare quick tunnel，并打印 Cursor 配置：
 
 ```text
 OpenAI Base URL for Cursor: https://xxxx.trycloudflare.com
 API Key: ccp_...
 ```
 
-Use those values in Cursor:
+在 Cursor 中填入这些值：
 
 ```text
 Base URL: https://xxxx.trycloudflare.com
@@ -64,39 +64,39 @@ API Key: ccp_...
 Model: gpt-5.5
 ```
 
-Quick tunnel hostnames change when the process restarts.
+进程重启后，quick tunnel 的域名会发生变化。
 
-## Debugging
+## 调试
 
-Tool-level logs:
+工具级日志：
 
 ```bash
 CCP_DEBUG=tools codex-cursor-proxy
 ```
 
-Short raw previews of tool inputs and outputs:
+简短预览工具输入和输出的原始内容：
 
 ```bash
 CCP_DEBUG=raw codex-cursor-proxy
 ```
 
-`raw` mode can include file paths and patch snippets. Use it only temporarily.
+`raw` 模式可能包含文件路径和补丁片段，请仅在临时排查问题时使用。
 
-## Environment
+## 环境变量
 
-- `CCP_PORT`: local port, default `3000`
-- `CCP_DEBUG`: `tools`, `raw`, `all`, `1`, or `true`
-- `CCP_AUTH_PATH`: override Codex auth file path
-- `CCP_CONFIG_DIR`: override proxy config directory
-- `CCP_API_URL`: override Codex backend URL
-- `CCP_MAX_BODY_BYTES`: request body limit, default `52428800`
+- `CCP_PORT`：本地端口，默认值为 `3000`
+- `CCP_DEBUG`：可设置为 `tools`、`raw`、`all`、`1` 或 `true`
+- `CCP_AUTH_PATH`：覆盖 Codex 认证文件路径
+- `CCP_CONFIG_DIR`：覆盖代理配置目录
+- `CCP_API_URL`：覆盖 Codex 后端 URL
+- `CCP_MAX_BODY_BYTES`：请求体大小限制，默认值为 `52428800`
 
-## Security Notes
+## 安全说明
 
-The quick tunnel URL is public. This proxy validates the Cursor API key against a generated `ccp_...` token stored in:
+quick tunnel URL 是公开可访问的。本代理会使用生成的 `ccp_...` token 校验 Cursor API Key，该 token 存储在：
 
 ```text
 ~/.codex/cursor-proxy/config.json
 ```
 
-Do not share the tunnel URL or API key. Stop the process when you are done.
+不要分享 tunnel URL 或 API Key。使用完成后请停止该进程。
