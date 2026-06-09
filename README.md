@@ -23,7 +23,7 @@ sudo mv cloudflared /usr/local/bin/cloudflared
 然后全局安装本项目：
 
 ```bash
-npm install -g git+ssh://git@git.sankuai.com/~leibo04/codex-cursor-proxy.git
+npm install -g git+ssh://git@git.sankuai.com/~leibo04/codex-cursor-proxy.git --install-links=true
 ```
 
 ## 使用方式
