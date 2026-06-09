@@ -8,7 +8,7 @@
     "codex-cursor-proxy": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node scripts/build.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
     "start": "node dist/index.js"
   },
@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.17.57",
+    "esbuild": "^0.25.10",
+    "javascript-obfuscator": "^4.1.1",
     "typescript": "^5.8.3"
   }
 }
