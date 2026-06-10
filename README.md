@@ -43,15 +43,15 @@ OpenAI Base URL for Cursor: https://xxxx.trycloudflare.com
 API Key: ccp_...
 ```
 
-在 Cursor 中填入这些值：
+在 Cursor Settings → Models → API Keys → OpenAI API Key 中填入这些值：
 
 ```text
 Base URL: https://xxxx.trycloudflare.com
 API Key: ccp_...
-Model: gpt-5.5
 ```
+在会话中选择Codex订阅支持的模型（如GPT-5.5 High）
 
-进程重启后，quick tunnel 的域名会发生变化。
+终端进程重启后，quick tunnel 的域名会发生变化，需要手动更新。
 
 ## 安全说明
 
